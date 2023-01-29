@@ -6,21 +6,24 @@
 
 # Naykel Pageit
 
-Uses `spatie` package with `spatie/permissions`
 
 
-    <x-gotime-actions-toolbar formName="page-form" routeName="pages" :preview=true />
+The `$url` is the `route_prefix` and `slug` from the database combined with the segments separated with a `/`. Why is this important? I think this only matters when using json nav with defined url.
 
+Each route prefix needs a custom route
 
-## Installation and Configuration
+```php
+Route::get('/about/{page:slug}', [PageController::class, 'show'])
+    ->name('pages.about.show')->where('route_prefix', 'about');
 
-add route to `web.php` **MUST COME LAST**
- 
-    Route::get('/{page}', [PageController::class, 'show'])->name('pages.show')
+Route::get('/categories/books/{page:slug}', [PageController::class, 'show'])
+    ->name('pages.categories.books.show')->where('route_prefix', 'categories.books');
+```
 
-## Change log
+#### Fallback Wildcard Route
 
-See the [changelog](changelog.md) for more information on what has changed recently.
+The fallback route should appear at the end of your `web.php` file.
 
-[link-author]: https://github.com/naykel76
-[link-email]: nathan@naykel.com.au
+```php
+Route::get('/{page:slug}', [PageController::class, 'show'])->name('pages.show');
+```

@@ -4,41 +4,35 @@ namespace Naykel\Pageit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Sluggable\HasSlug;
 
 class Page extends Model
 {
-    use HasFactory;
-    use HasSlug;
+    use HasFactory, HasSlug;
 
-    /**
-     * guard against uploaded_file included in validation being persisted
-     * to the database, converts to correct field name in validateMerge 
-     * data method
-     */
-
-    protected $guarded = ['uploaded_file'];
-
-    /**
-     * Create a new factory instance for the model allowing factory
-     * to be run from package.
-     */
-    protected static function newFactory()
+    public function pageBlocks()
     {
-        return \Naykel\Pageit\Database\Factories\PageFactory::new();
+        return $this->hasMany(PageBlock::class);
     }
 
+    public function mainImageUrl()
+    {
+        return $this->image
+            ? Storage::disk('public')->url($this->image)
+            : url('/svg/placeholder.svg');
+    }
 
-    /**
-     * Get the options for generating the slug.
-     * https://github.com/spatie/laravel-sluggable
-     */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
-            // ->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function isPublished()
+    {
+        return $this->published_at ? true : false;
     }
 }

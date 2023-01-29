@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,17 +16,14 @@ class CreatePagesTable extends Migration
         if (!Schema::hasTable('pages')) {
             Schema::create('pages', function (Blueprint $table) {
                 $table->id();
-                $table->string('slug')->unique()->nullable();
+                $table->string('route_prefix')->nullable();
                 $table->string('title');
-                $table->boolean('show_title')->default(true);
-                $table->string('headline')->nullable();
-                $table->longText('description')->nullable();
+                $table->string('slug')->nullable();
                 $table->longText('body')->nullable();
-                $table->string('image_name')->nullable();
-                $table->string('thumbnail')->nullable();
-                $table->string('template')->nullable();
-                $table->string('layout_type')->nullable();
-                $table->integer('order')->nullable()->default(0);
+                $table->string('image')->nullable();
+                $table->string('type')->nullable();
+                $table->string('layout')->nullable();
+                $table->integer('sort_order')->nullable()->default(0);
                 $table->dateTime('published_at')->nullable();
                 $table->timestamps();
             });
@@ -42,4 +39,4 @@ class CreatePagesTable extends Migration
     {
         Schema::dropIfExists('pages');
     }
-}
+};

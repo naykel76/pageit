@@ -1,15 +1,33 @@
 <?php
 
+use Naykel\Pageit\Http\Livewire\{PageTable, PageCreateEdit};
 use Illuminate\Support\Facades\Route;
-use Naykel\Pageit\Controllers\PageController;
 
 Route::middleware(['web'])->group(function () {
+    // Route::middleware(['role:super|admin', 'auth'])->prefix('admin')->name('admin')->group(function () {
+    Route::prefix('admin')->name('admin')->group(function () {
 
-    // admin routes
-    Route::middleware(['auth', 'role:super|admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::resource('/pages', PageController::class)->except(['show']);
+        Route::prefix('pages')->name('.pages')->group(function () {
+            Route::get('/{page:slug}/edit', PageCreateEdit::class)->name('.edit');
+            Route::get('/create', PageCreateEdit::class)->name('.create');
+            Route::get('', PageTable::class)->name('.index');
+        });
+
+        Route::prefix('page-builder')->name('page-builder')->group(function () {
+            // Route::get('/{page:slug}/edit', PageBuilder::class)->name('.edit');
+            // Route::get('/create', PageBuilder::class)->name('.create');
+        });
+
     });
-
 });
 
 
+// /** ---------------------------------------------------------------------------
+//  *  =!= MUST RUN LAST =!= MUST RUN LAST =!= MUST RUN LAST =!= MUST RUN LAST =!=
+//  * ------------------------------------------------------------------------- */
+// ///////////////////////////////////////////////////////////////////////////////
+// Route::get('/{page}', [PageController::class, 'show'])->name('pages.show');
+// ///////////////////////////////////////////////////////////////////////////////
+// /** ---------------------------------------------------------------------------
+//  *  =!= MUST RUN LAST =!= MUST RUN LAST =!= MUST RUN LAST =!= MUST RUN LAST =!=
+//  * ------------------------------------------------------------------------- */
