@@ -1,21 +1,40 @@
-<x-gotime-app-layout layout="{{ config('naykel.template') }}">
+<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$title>
 
-    <div class="container">
+    <div class="container maxw-md my-3">
 
-        <article class="py-5">
+        <article class="fancy">
 
-            @if($page->show_title)
-                <h1 class="title">{{ $page->title }}</h1>
+            @unless($page->hide_title)
+                <h1 class="title tac">{{ $page->title }}</h1>
+            @endunless
+
+            <p class="lead tac">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi harum magni quam officiis rem porro, exercitationem cumque ex.</p>
+
+            @if($page->image)
+                <div class="my-2"><img src="{{ $page->mainImageUrl() }}" alt="{{ $page->title ?? null }}" class="mx-auto rounded-05"></div>
             @endif
-
-            @isset($page->image_path)
-                <img class="pull-right pl-1 pb-1" src="{{ asset('storage/' . $page->image_path) }}" alt="{{ $page->title }}">
-            @endisset
 
             {!! $page->body !!}
 
         </article>
 
     </div>
+
+    @if($subCategories->isNotEmpty())
+        <section id="subCategories" class="tac my-3">
+            <div class="container">
+                <div class="grid cols-4-2-1">
+                    @foreach($subCategories as $category)
+                        <div class="mt">
+                            <a class="txt-lg" href="/{{ $category->route_prefix ? $category->route_prefix . '/' : '' }}{{ $category->slug }}">
+                                <img class="rounded-05" src="{{ $category->mainImageUrl() }}" alt="{{ $category->title ?? null }}">
+                                {{ $category->title }}
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
 </x-gotime-app-layout>

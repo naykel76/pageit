@@ -1,6 +1,6 @@
 <?php
 
-use Naykel\Pageit\Http\Livewire\{PageTable, PageCreateEdit};
+use Naykel\Pageit\Http\Livewire\{PageTable, PageCreateEdit, PageBuilder};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])->group(function () {
@@ -13,9 +13,9 @@ Route::middleware(['web'])->group(function () {
             Route::get('', PageTable::class)->name('.index');
         });
 
-        Route::prefix('page-builder')->name('page-builder')->group(function () {
-            // Route::get('/{page:slug}/edit', PageBuilder::class)->name('.edit');
-            // Route::get('/create', PageBuilder::class)->name('.create');
+        Route::prefix('page-builder')->name('.page-builder')->group(function () {
+            Route::get('/{page:slug}/edit', PageBuilder::class)->name('.edit');
+            Route::get('/create', PageBuilder::class)->name('.create');
         });
 
     });

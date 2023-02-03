@@ -1,7 +1,16 @@
 <div>
     <x-gt-title-bar :$title :$routePrefix />
 
-    <x-gt-search-sort-toolbar :$searchField :$searchOptions :$paginateOptions hideButton />
+    <x-gt-search-sort-toolbar :$searchField :$searchOptions :$paginateOptions hideButton >
+        <div>
+            <button wire:click.prevent="$set('filterBy', '')" class="btn outline round primary">
+                <span>Reset</span></button>
+            <button wire:click.prevent="$set('filterBy', 'published')" class="btn outline round primary">
+                <span>Published</span></button>
+             <button wire:click.prevent="$set('filterBy', 'draft')" class="btn outline round primary">
+                <span>Draft</span></button>
+        </div>
+    </x-gt-search-sort-toolbar>
 
     <table class="w-full">
 
@@ -16,8 +25,8 @@
             @forelse($items as $item)
 
                 <tr>
-                    <td class="w-full">{{ $item->title }}</td>
-                    <td class="tac">{{ $item->isPublished() ? 'Yes' : 'No' }}</td>
+                    <td class="w-full">{{ $item->title }} <div class="txt-muted txt-sm">{{ $item->route_prefix . '/' }}{{ $item->slug }}</div> </td>
+                    <td class="tac"><div class="round {{ $item->isPublished() ? 'success' : 'danger' }}">{{ $item->isPublished() ? 'Yes' : 'No' }}</div></td>
                     <td>
                         <div class="flex">
                             <a href="{{ route("$routePrefix.edit", $item->slug) }}" class="ml-05 btn blue sm pxy-025">

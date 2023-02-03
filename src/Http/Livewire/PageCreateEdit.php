@@ -21,8 +21,14 @@ class PageCreateEdit extends Component
     public function rules()
     {
         return [
+            'editing.*' => 'sometimes',
+            'editing.route_prefix' => 'sometimes',
+            'editing.slug' => 'sometimes',
             'editing.title' => 'required|min:3',
-            'editing.body' => 'sometimes',
+            'editing.hide_title' => 'sometimes',
+            'editing.is_category' => 'sometimes',
+            'editing.type' => 'sometimes',
+            'editing.body' => 'required',
             'editing.sort_order' => 'nullable|numeric',
             'tmpUpload' => 'nullable|image',
         ];
@@ -42,7 +48,7 @@ class PageCreateEdit extends Component
 
     protected function afterPersistHook()
     {
-        $this->tmpUpload ? $this->handleUpload($this->tmpUpload) : null;
+        $this->tmpUpload ? $this->handleUpload($this->tmpUpload, disk: 'content', withOriginalName: true) : null;
     }
 
     public function render()

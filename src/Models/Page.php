@@ -12,6 +12,17 @@ class Page extends Model
 {
     use HasFactory, HasSlug;
 
+    // public function getStatusColorAttribute()
+    // {
+    //     return [
+    //         'success' => 'green',
+    //         'failed' => 'red',
+    //     ][$this->status] ?? 'cool-gray';
+    // }
+
+    // bg-{{ $transaction->status_color }}-100
+
+
     public function pageBlocks()
     {
         return $this->hasMany(PageBlock::class);
@@ -20,7 +31,7 @@ class Page extends Model
     public function mainImageUrl()
     {
         return $this->image
-            ? Storage::disk('public')->url($this->image)
+            ? Storage::disk('content')->url($this->image)
             : url('/svg/placeholder.svg');
     }
 
@@ -28,11 +39,23 @@ class Page extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function isPublished()
     {
         return $this->published_at ? true : false;
+    }
+
+    public function scopePublished($q)
+    {
+        return $q->whereNotNull('published_at');
+    }
+
+
+    public function scopeSubCategories($query)
+    {
+        return $query;
     }
 }

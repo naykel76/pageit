@@ -18,11 +18,13 @@ return new class extends Migration
                 $table->id();
                 $table->string('route_prefix')->nullable();
                 $table->string('title');
-                $table->string('slug')->nullable();
+                $table->boolean('hide_title')->default(0);
+                $table->string('slug');
                 $table->longText('body')->nullable();
                 $table->string('image')->nullable();
                 $table->string('type')->nullable();
                 $table->string('layout')->nullable();
+                $table->bool('layout')->nullable();
                 $table->integer('sort_order')->nullable()->default(0);
                 $table->dateTime('published_at')->nullable();
                 $table->timestamps();
