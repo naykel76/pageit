@@ -17,6 +17,7 @@ return new class extends Migration
             Schema::create('pages', function (Blueprint $table) {
                 $table->id();
                 $table->string('route_prefix')->nullable();
+                $table->boolean('is_category')->default(0);
                 $table->string('title');
                 $table->boolean('hide_title')->default(0);
                 $table->string('slug');
@@ -24,7 +25,6 @@ return new class extends Migration
                 $table->string('image')->nullable();
                 $table->string('type')->nullable();
                 $table->string('layout')->nullable();
-                $table->bool('layout')->nullable();
                 $table->integer('sort_order')->nullable()->default(0);
                 $table->dateTime('published_at')->nullable();
                 $table->timestamps();
