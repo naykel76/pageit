@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    // public function index()
-    // {
-    //     return view('pages.category-page')->with([
-    //         $title => '',
-    //         $categories => ''
-    //     ]);
-    // }
 
     public function show(Request $request, Page $page)
     {
@@ -22,8 +15,7 @@ class PageController extends Controller
 
         $x = $this->getCategoryPages($routePrefix . '/' . $page->slug)->get();
 
-        // dd($x->isEmpty());
-        return view('pageit::pages.show')->with([
+        return view('pageit::pages.' . $page->layout)->with([
             'title' => $page->title,
             'page' => $page,
             'subCategories' => $x

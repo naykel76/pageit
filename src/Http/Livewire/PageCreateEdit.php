@@ -21,14 +21,16 @@ class PageCreateEdit extends Component
     public function rules()
     {
         return [
+            'editing.layout' => 'required|in:' . collect(self::$model::LAYOUTS)->keys()->implode(','),
             'editing.*' => 'sometimes',
             'editing.route_prefix' => 'sometimes',
             'editing.slug' => 'sometimes',
             'editing.title' => 'required|min:3',
+            'editing.headline' => 'sometimes',
             'editing.hide_title' => 'sometimes',
             'editing.is_category' => 'sometimes',
             'editing.type' => 'sometimes',
-            'editing.body' => 'required',
+            'editing.body' => 'sometimes', // review for conditional use
             'editing.sort_order' => 'nullable|numeric',
             'tmpUpload' => 'nullable|image',
         ];
@@ -53,6 +55,7 @@ class PageCreateEdit extends Component
 
     public function render()
     {
+
         return view('pageit::page-create-edit')
             ->layout(\Naykel\Gotime\View\Layouts\AppLayout::class, ['title' => $this->title, 'layout' => 'admin']);
     }

@@ -17,9 +17,10 @@ return new class extends Migration
             Schema::create('pages', function (Blueprint $table) {
                 $table->id();
                 $table->string('route_prefix')->nullable();
-                $table->boolean('is_category')->default(0);
+                $table->boolean('is_category')->nullable()->default(0);
                 $table->string('title');
-                $table->boolean('hide_title')->default(0);
+                $table->boolean('hide_title')->nullable()->default(0);
+                $table->mediumText('headline')->nullable();
                 $table->string('slug');
                 $table->longText('body')->nullable();
                 $table->string('image')->nullable();

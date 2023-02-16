@@ -12,7 +12,7 @@ class PageTable extends Component
     use WithPagination, WithDataTable;
 
     public string $sortField = 'title';
-    public string $searchField = 'route_prefix';
+    public string $searchField = 'title';
     public array $searchOptions = ['title' => 'Title', 'slug' => 'Slug', 'route_prefix' => 'Route'];
 
     public string $routePrefix = 'admin.pages';
