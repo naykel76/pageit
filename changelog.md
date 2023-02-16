@@ -1,5 +1,10 @@
 # Changelog
 
+
+- define getRouteKeyName to prevent bugs
+- minor fixes
+
+
 ## 0.1.2
 - remove example section
 

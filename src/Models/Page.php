@@ -12,9 +12,6 @@ class Page extends Model
 {
     use HasFactory, HasSlug;
 
-    // pageit::pages.page-banner-layout
-    // add the layout view as the key
-
     /**
      * Defines the layout a page will use when the show method is called
      */
@@ -41,6 +38,11 @@ class Page extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug')
             ->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     public function isPublished()

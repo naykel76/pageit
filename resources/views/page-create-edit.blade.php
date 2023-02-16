@@ -41,7 +41,7 @@
             <hr>
 
             <div x-data="{show: false}" class="tar">
-                <button class="" x-on:click="show = !show">
+                <button class="" x-on:click.prevent="show = !show">
                     <x-gt-icon-info class="txt-blue" /></button>
                 <div class="bx info-light pxy-05 tal mb" x-show="show">
                     <button class="pull-right btn pxy-025 ml-05" x-on:click="show=true">
