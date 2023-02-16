@@ -44,7 +44,7 @@
                 <button class="" x-on:click.prevent="show = !show">
                     <x-gt-icon-info class="txt-blue" /></button>
                 <div class="bx info-light pxy-05 tal mb" x-show="show">
-                    <button class="pull-right btn pxy-025 ml-05" x-on:click="show=true">
+                    <button class="pull-right btn pxy-025 ml-05" x-on:click.prevent="show=true">
                         <x-gt-icon-cross class="icon sm" /></button>
                     <small>The headline section is typically positioned directly beneath the page title and is reserved for displaying an introductory list or lead paragraph. Depending on the chosen page layout and template configuration, the style of this section may vary.</small>
                 </div>
