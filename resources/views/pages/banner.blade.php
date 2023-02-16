@@ -32,6 +32,4 @@
         </div>
     @endif
 
-    <x-pageit::example-section />
-
 </x-gotime-app-layout>

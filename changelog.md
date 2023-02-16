@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.2
+- remove example section
+
 ## 0.1.1
 - allow nullable boolean columns
 - add install command
