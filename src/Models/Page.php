@@ -12,16 +12,16 @@ class Page extends Model
 {
     use HasFactory, HasSlug;
 
-    // public function getStatusColorAttribute()
-    // {
-    //     return [
-    //         'success' => 'green',
-    //         'failed' => 'red',
-    //     ][$this->status] ?? 'cool-gray';
-    // }
+    // pageit::pages.page-banner-layout
+    // add the layout view as the key
 
-    // bg-{{ $transaction->status_color }}-100
-
+    /**
+     * Defines the layout a page will use when the show method is called
+     */
+    const LAYOUTS = [
+        'default' => 'General Page',
+        'banner' => 'Banner',
+    ];
 
     public function pageBlocks()
     {

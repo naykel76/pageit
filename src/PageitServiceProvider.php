@@ -7,6 +7,7 @@ use Illuminate\View\Compilers\BladeCompiler;
 use Naykel\Pageit\Http\Livewire\PageBuilder;
 use Naykel\Pageit\Http\Livewire\PageBlocks;
 use Naykel\Pageit\Http\Livewire\PageTable;
+use Naykel\Pageit\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -25,6 +26,7 @@ class PageitServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->commands([InstallCommand::class]);
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'pageit');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadRoutesFrom(__DIR__ . '/routes.php');

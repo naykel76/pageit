@@ -27,3 +27,22 @@ The fallback route should appear at the end of your `web.php` file.
 ```php
 Route::get('/{page:slug}', [PageController::class, 'show'])->name('pages.show');
 ```
+
+
+## Database Schema
+
+| Field        | Description                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| route_prefix |                                                                                          |
+| is_category  |                                                                                          |
+| title        | Page title                                                                               |
+| hide_title   |                                                                                          |
+| intro        |                                                                                          |
+| headline     | Can be used to create some lead text, lists or special content generally used the banner |
+| slug         |                                                                                          |
+| body         |                                                                                          |
+| image        |                                                                                          |
+| type         |                                                                                          |
+| layout       |                                                                                          |
+| sort_order   |                                                                                          |
+| published_at |                                                                                          |
