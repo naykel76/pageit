@@ -40,11 +40,6 @@ class Page extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function isPublished()
     {
         return $this->published_at ? true : false;

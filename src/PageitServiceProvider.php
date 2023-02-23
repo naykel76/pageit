@@ -4,8 +4,6 @@ namespace Naykel\Pageit;
 
 use Naykel\Pageit\Http\Livewire\PageCreateEdit;
 use Illuminate\View\Compilers\BladeCompiler;
-use Naykel\Pageit\Http\Livewire\PageBuilder;
-use Naykel\Pageit\Http\Livewire\PageBlocks;
 use Naykel\Pageit\Http\Livewire\PageTable;
 use Naykel\Pageit\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
@@ -18,8 +16,6 @@ class PageitServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving(BladeCompiler::class, function () {
             Livewire::component('page-create-edit', PageCreateEdit::class);
-            Livewire::component('pageit.page-blocks', PageBlocks::class);
-            Livewire::component('page-builder', PageBuilder::class);
             Livewire::component('page-table', PageTable::class);
         });
     }
