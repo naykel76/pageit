@@ -20,11 +20,6 @@ class Page extends Model
         'banner' => 'Banner',
     ];
 
-    public function pageBlocks()
-    {
-        return $this->hasMany(PageBlock::class);
-    }
-
     public function mainImageUrl()
     {
         return $this->image
@@ -35,24 +30,13 @@ class Page extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
+            ->doNotGenerateSlugsOnUpdate()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug')
-            ->doNotGenerateSlugsOnUpdate();
+            ->saveSlugsTo('slug');
     }
 
     public function isPublished()
     {
         return $this->published_at ? true : false;
-    }
-
-    public function scopePublished($q)
-    {
-        return $q->whereNotNull('published_at');
-    }
-
-
-    public function scopeSubCategories($query)
-    {
-        return $query;
     }
 }
