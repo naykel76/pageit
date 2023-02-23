@@ -8,7 +8,7 @@ Route::middleware(['web'])->group(function () {
     Route::prefix('admin')->name('admin')->group(function () {
 
         Route::prefix('pages')->name('.pages')->group(function () {
-            Route::get('/{page:slug}/edit', PageCreateEdit::class)->name('.edit');
+            Route::get('/{page}/edit', PageCreateEdit::class)->name('.edit');
             Route::get('/create', PageCreateEdit::class)->name('.create');
             Route::get('', PageTable::class)->name('.index');
         });
