@@ -8,6 +8,8 @@
                 <span>Published</span></button>
             <button wire:click.prevent="$set('filterBy', 'draft')" class="btn outline round primary">
                 <span>Draft</span></button>
+            <button wire:click.prevent="$set('filterBy', 'categories')" class="btn outline round primary">
+                <span>Categories</span></button>
             <button wire:click.prevent="$set('filterBy', '')" class="btn round">
                 <span>Reset</span></button>
         </div>
@@ -24,14 +26,23 @@
         <tbody wire:loading.class="txt-muted">
 
             @forelse($items as $item)
-
                 <tr>
-                    <td class="w-full">{{ $item->title }} <div class="txt-muted txt-sm">{{ $item->route_prefix . '/' }}{{ $item->slug }}</div>
+                    <td class="w-full">
+                        {{ $item->title }}
+
+                        @if($item->isParentCategory())
+                            <span class="badge blue">Category</span>
+                        @endif
+
+                        @if($item->isSubCategory())
+                            <span class="badge indigo">Sub-Category</span>
+                        @endif
+
+                        <div class="txt-muted txt-sm"> {{ $item->route_prefix . '/' }} {{ $item->slug }} </div>
                     </td>
+
                     <td class="tac">
-                        {{-- <div class="round "> --}}
-                            <span class="badge {{ $item->isPublished() ? 'success' : 'danger' }}">{{ $item->isPublished() ? 'Yes' : 'No' }}</span>
-                        {{-- </div> --}}
+                        <span class="badge {{ $item->isPublished() ? 'success' : 'danger' }}">{{ $item->isPublished() ? 'Published' : 'Draft' }}</span>
                     </td>
                     <td>
                         <div class="flex">

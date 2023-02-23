@@ -112,9 +112,9 @@
 
                 <hr>
 
-                <div class="bx danger-light pxy-05">
+                <div class="bx danger-light pxy-05 flex-col gg-1 space-y-0">
 
-                    <p class="txt-xs">These toggle switches are required for develpoment purpose and should not be changed.</p>
+                    <p class="txt-sm">These toggle switches are required for develpoment purpose and should not be changed.</p>
 
                     <label class="toggle">
                         <input type="checkbox" wire:model.defer="editing.hide_title">
@@ -122,13 +122,14 @@
                         <span class="ml">Hide Title</span>
                     </label>
 
-                    <br>
 
                     <label class="toggle">
                         <input type="checkbox" wire:model.defer="editing.is_category">
                         <div></div>
                         <span class="ml">Is Category</span>
                     </label>
+
+                    <div class="txt-sm mt-1">Validation *IS NOT* set up to check for duplicate category routes so be careful not to create a multiple landing pages for the same category.</div>
 
                     <x-gt-input wire:model.defer="editing.type" for="editing.type" placeholder="Page type advanced or normal" disabled row-class="mt" />
 

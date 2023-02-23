@@ -3,6 +3,7 @@
 namespace Naykel\Pageit\Http\Livewire;
 
 use Naykel\Gotime\Traits\WithCrud;
+use Illuminate\Validation\Rule;
 use Naykel\Pageit\Models\Page;
 use Livewire\Component;
 
@@ -22,8 +23,20 @@ class PageCreateEdit extends Component
         return [
             'editing.title' => 'required|min:3',
             'editing.layout' => 'required|in:' . collect(self::$model::LAYOUTS)->keys()->implode(','),
-            // 'editing.*' => 'sometimes', // ???
-            'editing.route_prefix' => 'sometimes',
+            // if is_category = true, see if any other pages have
+            // is_category=true AND route_prefix the same as the current
+            'editing.route_prefix' => [
+                Rule::requiredIf($this->editing->is_category),
+                Rule::unique('pages', 'route_prefix')
+                    ->where(function ($query) {
+                        if ($this->editing->is_category) {
+                            return $query->where('route_prefix', $this->editing->route_prefix);
+                        }
+                        // must have always false condition, else returns true
+                        return $query->whereRaw('1=0');
+                    })
+                    ->ignore($this->editing->id)
+            ],
             'editing.slug' => 'sometimes',
             'editing.headline' => 'sometimes',
             'editing.hide_title' => 'sometimes',
@@ -35,11 +48,25 @@ class PageCreateEdit extends Component
         ];
     }
 
+    protected $messages = [
+        'editing.route_prefix.unique' => 'You must set a unique route prefix for a category landing page. This error indicates that you already have a category landing page with this route_prefix.',
+    ];
+
     public function mount(Page $page)
     {
         $this->editing = $page ? $page : $this->makeBlankModel();
         $this->isPublished = $this->editing->isPublished();
         $this->title = $this->setTitle();
+    }
+
+    protected function beforePersistHook()
+    {
+        $this->handlePublishedStatus();
+    }
+
+    protected function afterPersistHook()
+    {
+        $this->tmpUpload ? $this->handleUpload($this->tmpUpload, disk: 'content', withOriginalName: true) : null;
     }
 
     public function render()

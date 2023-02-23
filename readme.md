@@ -6,35 +6,12 @@
 
 # Naykel Pageit
 
-
-
-The `$url` is the `route_prefix` and `slug` from the database combined with the segments separated with a `/`. Why is this important? I think this only matters when using json nav with defined url.
-
-Each route prefix needs a custom route
-
-```php
-Route::get('/about/{page:slug}', [PageController::class, 'show'])
-    ->name('pages.about.show')->where('route_prefix', 'about');
-
-Route::get('/categories/books/{page:slug}', [PageController::class, 'show'])
-    ->name('pages.categories.books.show')->where('route_prefix', 'categories.books');
-```
-
-#### Fallback Wildcard Route
-
-The fallback route should appear at the end of your `web.php` file.
-
-```php
-Route::get('/{page:slug}', [PageController::class, 'show'])->name('pages.show');
-```
-
-
 ## Database Schema
 
 | Field        | Description                                                                              |
 | ------------ | ---------------------------------------------------------------------------------------- |
 | route_prefix |                                                                                          |
-| is_category  |                                                                                          |
+| is_category  | indicates if the page is a main category page                                            |
 | title        | Page title                                                                               |
 | hide_title   |                                                                                          |
 | intro        |                                                                                          |
@@ -46,3 +23,5 @@ Route::get('/{page:slug}', [PageController::class, 'show'])->name('pages.show');
 | layout       |                                                                                          |
 | sort_order   |                                                                                          |
 | published_at |                                                                                          |
+
+

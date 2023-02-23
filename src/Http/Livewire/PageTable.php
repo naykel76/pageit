@@ -27,6 +27,7 @@ class PageTable extends Component
         sleep(1);
 
         $query = self::$model::search($this->searchField, $this->search)
+            ->when($this->filterBy == 'categories', fn ($query) => $query->where('is_category', true))
             ->when($this->filterBy == 'published', fn ($query) => $query->whereNotNull('published_at'))
             ->when($this->filterBy == 'draft', fn ($query) => $query->whereNull('published_at'))
             ->orderBy($this->sortField, $this->sortDirection)
