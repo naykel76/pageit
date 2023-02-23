@@ -4,12 +4,11 @@ namespace Naykel\Pageit\Http\Livewire;
 
 use Naykel\Gotime\Traits\WithCrud;
 use Naykel\Pageit\Models\Page;
-use Livewire\WithPagination;
 use Livewire\Component;
 
 class PageCreateEdit extends Component
 {
-    use WithPagination, WithCrud;
+    use WithCrud;
 
     private static $model = Page::class;
     public string $routePrefix = 'admin.pages';
@@ -21,11 +20,11 @@ class PageCreateEdit extends Component
     public function rules()
     {
         return [
+            'editing.title' => 'required|min:3',
             'editing.layout' => 'required|in:' . collect(self::$model::LAYOUTS)->keys()->implode(','),
-            'editing.*' => 'sometimes',
+            // 'editing.*' => 'sometimes', // ???
             'editing.route_prefix' => 'sometimes',
             'editing.slug' => 'sometimes',
-            'editing.title' => 'required|min:3',
             'editing.headline' => 'sometimes',
             'editing.hide_title' => 'sometimes',
             'editing.is_category' => 'sometimes',
@@ -43,20 +42,12 @@ class PageCreateEdit extends Component
         $this->title = $this->setTitle();
     }
 
-    protected function beforePersistHook()
-    {
-        $this->handlePublishedStatus();
-    }
-
-    protected function afterPersistHook()
-    {
-        $this->tmpUpload ? $this->handleUpload($this->tmpUpload, disk: 'content', withOriginalName: true) : null;
-    }
-
     public function render()
     {
-
         return view('pageit::page-create-edit')
-            ->layout(\Naykel\Gotime\View\Layouts\AppLayout::class, ['title' => $this->title, 'layout' => 'admin']);
+            ->layout(\Naykel\Gotime\View\Layouts\AppLayout::class, [
+                'title' => $this->title,
+                'layout' => 'admin'
+            ]);
     }
 }

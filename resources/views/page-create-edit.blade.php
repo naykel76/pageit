@@ -28,29 +28,60 @@
 
         <x-slot name="main">
 
-            <x-gt-input wire:model.defer="editing.title" for="editing.title" label="Title" req />
+            <div class="flex gg-2">
 
-            <div class="grid cols-2">
-                <x-gt-input wire:model.defer="editing.route_prefix" for="editing.route_prefix" label="Route Prefix"
-                    placeholder="Advanced use for routing" disabled />
-                <x-gt-input wire:model.defer="editing.slug" for="editing.slug" label="Slug" />
-            </div>
+                <div class="fg1">
 
-            <p class="mt-05"><small>The route prefix and slug are used for site navigation and should not be changed unless instructed.</small></p>
+                    <x-gt-input wire:model.defer="editing.title" for="editing.title" label="Title" req inline />
 
-            <hr>
+                    <hr>
 
-            <div x-data="{show: false}" class="tar">
-                <button class="" x-on:click.prevent="show = !show">
-                    <x-gt-icon-info class="txt-blue" /></button>
-                <div class="bx info-light pxy-05 tal mb" x-show="show">
-                    <button class="pull-right btn pxy-025 ml-05" x-on:click.prevent="show=true">
-                        <x-gt-icon-cross class="icon sm" /></button>
-                    <small>The headline section is typically positioned directly beneath the page title and is reserved for displaying an introductory list or lead paragraph. Depending on the chosen page layout and template configuration, the style of this section may vary.</small>
+                    <x-gt-select wire:model.defer="editing.layout" for="editing.layout" label="Layout" placeholder="Please Select..." req inline>
+                        @foreach(self::$model::LAYOUTS as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </x-gt-select>
+
+                    <hr>
+
+                    <x-gt-trix wire:model.lazy="editing.headline" for="editing.headline" label="Headline">
+                        <x-slot name="tooltip">
+                            <span x-data="{open:false}" x-on:mouseenter="open=true" x-on:mouseleave="open=false" class="relative">
+                                <x-gt-icon-info class="txt-blue" />
+                                <div class="absolute pos-r mt-05 flex w-24 z-100 bx info-light pxy-05 " x-show="open" x-transition.duration style="display: none;">
+                                    <small>The headline section usually appears right after the page title and is used to showcase a brief paragraph or bullet list. The appearance of this section can differ based on the page layout and template settings selected.</small>
+                                </div>
+                            </span>
+                        </x-slot>
+                    </x-gt-trix>
+
                 </div>
-            </div>
 
-            <x-gt-trix wire:model.lazy="editing.headline" for="editing.headline" label="Headline" />
+                <div class="w-20 fs0">
+
+                    <div class="bx pxy-1">
+
+                        @if($tmpUpload)
+
+                            <img src="{{ $tmpUpload->temporaryUrl() }}" alt="{{ $editing->title ?? null }}" class="mxy-auto mb">
+
+                            @if((isset($editing->image) ))
+                                <div class="tac"><small class="txt-red lh-1">Previous image will be deleted automatically when saved.</small></div>
+                            @endif
+
+                        @else
+
+                            <img src="{{ $editing->mainImageUrl() }}" alt="{{ $editing->title ?? null }}" class="mxy-auto mb">
+
+                        @endif
+
+                        <x-gt-filepond wire:model="tmpUpload" for="tmpUpload" />
+
+                    </div>
+
+                </div>
+
+            </div>
 
             <hr>
 
@@ -60,51 +91,30 @@
 
         <x-slot name="aside">
 
+            <hr class="mt-0">
+
+            <label class="toggle">
+                <input type="checkbox" wire:model.defer="isPublished">
+                <div></div>
+                <span class="ml">Published</span>
+            </label>
+
+            <hr>
+
             <div>
 
-                <div class="mb">
+                <p class="txt-xs">The route prefix and slug are used for site navigation and should not be changed unless you know what you are doing.</p>
 
-                    @if($tmpUpload)
+                <x-gt-input wire:model.defer="editing.route_prefix" for="editing.route_prefix" label="Route Prefix"
+                    placeholder="Advanced use, required for routing" />
 
-                        <img src="{{ $tmpUpload->temporaryUrl() }}" alt="{{ $editing->title ?? null }}" class="mxy-auto">
-
-                        @if((isset($editing->image) ))
-                            <div class="tac"><small class="txt-red lh-1">Previous image will be deleted automatically when saved.</small></div>
-                        @endif
-
-                    @else
-
-                        <img src="{{ $editing->mainImageUrl() }}" alt="{{ $editing->title ?? null }}" class="mxy-auto">
-
-                    @endif
-
-                </div>
-
-                <x-gt-filepond wire:model="tmpUpload" for="tmpUpload" />
+                <x-gt-input wire:model.defer="editing.slug" for="editing.slug" label="Slug" />
 
                 <hr>
 
-                <x-gt-select wire:model.defer="editing.layout" for="editing.layout" label="Layout" placeholder="Please Select..."
-                    help-text="Select the desired layout style for this page.">
-                    @foreach(self::$model::LAYOUTS as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
-                    @endforeach
-                </x-gt-select>
-
-                <hr>
-
-                <label class="toggle">
-                    <input type="checkbox" wire:model.defer="isPublished">
-                    <div></div>
-                    <span class="ml">Published</span>
-                </label>
-
-                <br>
-
-                <hr>
                 <div class="bx danger-light pxy-05">
 
-                    <p><small>These toggle switches are required for develpoment purpose and should not be changed.</small></p>
+                    <p class="txt-xs">These toggle switches are required for develpoment purpose and should not be changed.</p>
 
                     <label class="toggle">
                         <input type="checkbox" wire:model.defer="editing.hide_title">
