@@ -63,10 +63,33 @@ class Page extends Model
 
     /**
      * ----------------------------------------------------------------------
-     *
+     * QUERY SCOPES
      * ----------------------------------------------------------------------
      *
      */
 
+    public function scopeCategoryLandingPages($query)
+    {
+        $query->select('id', 'title', 'route_prefix', 'slug', 'is_category')
+            ->where('is_category', true);
+    }
 
+    /**
+     * SELECT pages WHERE 'route_prefix' NOT IN 'categoryLandingPages'
+     */
+    public function scopeUncategorisedPages($query)
+    {
+        $query->select('id', 'title', 'route_prefix', 'slug', 'is_category')
+            ->whereNotIn('route_prefix', function ($query) {
+                $query->select('route_prefix')
+                    ->from('pages')
+                    ->where('is_category', true);
+            });
+    }
+
+    public function scopePagesNotCategory($query)
+    {
+        $query->select('id', 'title', 'route_prefix', 'slug', 'is_category')
+            ->where('is_category', false);
+    }
 }

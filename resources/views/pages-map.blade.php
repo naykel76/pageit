@@ -2,27 +2,41 @@
 
     <div class="container py-5-3-2">
 
-        @foreach($pages as $routePrefix => $pagesGrouped)
+        <div class="grid-3 cols-2">
 
-            <div class="bdr">
-                {{-- Get the category landing page --}}
-                @php
-                    $categoryPage = $pagesGrouped->where('is_category', true)->first();
-                @endphp
+            <div>
 
-                {{-- Output the category or subcategory for the current group --}}
-                <h6>{{ ($categoryPage->title ?? 'Uncategorized Pages') }}</h6>
+                @foreach($categoryLandingPages as $category)
 
-                <ul>
-                    {{-- Loop through the pages in the current group and output their titles --}}
-                    @foreach($pagesGrouped as $page)
-                        <li class="ml">{{ $page->title }}</li>
-                    @endforeach
-                </ul>
+                    @php
+                        $parentCategory = numSegments($category->route_prefix) === 1
+                    @endphp
+
+                    <h4 class="{{ $parentCategory ? '' : 'ml' }}">
+                        {{ $parentCategory ? 'Main-Category:' : 'Sub-Category:' }}
+                        <span class="fw4"><a href="{{ url($category->route_prefix) }}">{{ $category->title }}</a></span>
+                    </h4>
+
+                    <ul class="mt-05 {{ $parentCategory ? '' : 'ml-2' }}">
+                        @foreach($pages as $page)
+                            @if($page->route_prefix === $category->route_prefix)
+                                <li> {{ $page->title }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+
+                @endforeach
 
             </div>
 
-        @endforeach
+            <ul>
+                <h4>Uncategorised Pages</h4>
+                @foreach($uncategorisedPages as $page)
+                    <li class="ml">{{ $page->title }}</li>
+                @endforeach
+            </ul>
+
+        </div>
 
     </div>
 
