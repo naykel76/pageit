@@ -129,8 +129,6 @@
                         <span class="ml">Is Category</span>
                     </label>
 
-                    <div class="txt-sm mt-1">Validation *IS NOT* set up to check for duplicate category routes so be careful not to create a multiple landing pages for the same category.</div>
-
                     <x-gt-input wire:model.defer="editing.type" for="editing.type" placeholder="Page type advanced or normal" disabled row-class="mt" />
 
                 </div>

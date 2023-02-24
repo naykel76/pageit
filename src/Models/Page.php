@@ -35,6 +35,12 @@ class Page extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
+    /**
+     * ----------------------------------------------------------------------
+     *
+     * ----------------------------------------------------------------------
+     *
+     */
     public function isPublished()
     {
         return $this->published_at ? true : false;
@@ -57,24 +63,10 @@ class Page extends Model
 
     /**
      * ----------------------------------------------------------------------
-     * QUERY SCOPES
-     * ----------------------------------------------------------------------
      *
+     * ----------------------------------------------------------------------
      *
      */
 
-    // /**
-    //  * Fetch all categories and sub-categories.
-    //  */
-    // public function scopeCategories($query)
-    // {
-    //     return $query->select('is_category', true);
-    // }
 
-
-
-    // public function scopePagesByCategory($query, $routePrefix)
-    // {
-    //     return $query->where('route_prefix', 'like',  $routePrefix . '%');
-    // }
 }

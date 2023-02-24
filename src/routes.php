@@ -2,9 +2,10 @@
 
 use Naykel\Pageit\Http\Livewire\{PageTable, PageCreateEdit};
 use Illuminate\Support\Facades\Route;
+use Naykel\Pageit\Http\Controllers\ShowPageMapController;
 
 Route::middleware(['web'])->group(function () {
-    // Route::get('/page-map', PageMapController::class)->name('page-map');
+    Route::get('/page-map', ShowPageMapController::class)->name('page-map');
 
     Route::middleware(['role:super|admin', 'auth'])->prefix('admin')->name('admin')->group(function () {
         Route::prefix('pages')->name('.pages')->group(function () {

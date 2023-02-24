@@ -28,15 +28,16 @@
             @forelse($items as $item)
                 <tr>
                     <td class="w-full">
-                        {{ $item->title }}
 
                         @if($item->isParentCategory())
-                            <span class="badge blue">Category</span>
+                            <span class="badge blue">Main Category</span>
                         @endif
 
                         @if($item->isSubCategory())
                             <span class="badge indigo">Sub-Category</span>
                         @endif
+
+                        {{ $item->title }}
 
                         <div class="txt-muted txt-sm"> {{ $item->route_prefix . '/' }} {{ $item->slug }} </div>
                     </td>
