@@ -9,16 +9,19 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
 
+    // This function needs to be more flexible, as not all pages will have categories!
     public function show(Request $request, Page $page)
     {
         $routePrefix = ltrim($request->route()->getPrefix(), '/');
 
-        $x = $this->getCategoryPages($routePrefix . '/' . $page->slug)->get();
+        $subCategories = $this->getCategoryPages($routePrefix . '/' . $page->slug)->get();
 
-        return view('pageit::pages.' . $page->layout)->with([
+        $layout = $page->layout ?? 'default';
+
+        return view('pageit::pages.' . $layout)->with([
             'title' => $page->title,
             'page' => $page,
-            'subCategories' => $x
+            'subCategories' => $subCategories
         ]);
     }
 

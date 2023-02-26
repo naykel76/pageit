@@ -20,7 +20,7 @@
 
     <h1>{{ $title }}</h1>
 
-    <x-gt-actions-toolbar :$routePrefix :$editing />
+    <x-gt-actions-toolbar :$routePrefix :$editing :$actionItemId />
 
     <x-gotime-errors />
 
@@ -139,21 +139,7 @@
 
     </x-gt-admin-form>
 
-    <x-gt-modal.confirmation wire:model="actionItemId">
 
-        <x-slot name="title">
-            Delete Item
-        </x-slot>
-
-        <p> Are you sure you want to delete this item? </p>
-
-        <x-slot name="footer">
-            <button wire:click.prevent="$set('actionItemId', false)"
-                wire:loading.attr="disabled" class="btn">Nevermind </button>
-            <button wire:click.prevent="delete({{ $actionItemId }})" withRedirect
-                class="btn danger">Delete</button>
-        </x-slot>
-
-    </x-gt-modal.confirmation>
+    <x-gt-modal.delete wire:model="actionItemId" id="{{ $actionItemId }}" withRedirect />
 
 </div>

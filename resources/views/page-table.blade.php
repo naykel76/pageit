@@ -49,8 +49,9 @@
                         <div class="flex">
                             <a href="{{ route("$routePrefix.edit", $item->id) }}" class="ml-05 btn blue sm pxy-025">
                                 <x-gt-icon-edit-o class="icon" /></a>
-                            {{-- <a href="{{ route("pages.show", $item->slug) }}" target="_blank" class="ml-05 btn yellow sm pxy-025">
-                            <x-gt-icon-eyes class="icon" /></a> --}}
+                                {{-- use layout??? --}}
+                            <a href="{{ route("pages.show", $item->slug) }}" target="_blank" class="ml-05 btn yellow sm pxy-025">
+                                <x-gt-icon-eyes class="icon" /></a>
                         </div>
 
                     </td>
