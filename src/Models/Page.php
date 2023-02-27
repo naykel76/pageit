@@ -29,11 +29,11 @@ class Page extends Model
 
     public function getSlugOptions(): SlugOptions
     {
-        // only regenerate slug when null,
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug')
-            ->skipGenerateWhen(fn () => $this->slug !== '');
+            // if a slug exists leave it alone.
+            ->skipGenerateWhen(fn () => !empty($this->slug));
     }
 
     /**
