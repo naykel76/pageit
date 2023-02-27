@@ -1,5 +1,7 @@
 # Changelog
 
+- fix title error when not available
+
 ## 0.1.2
 - add warning message for advanced layouts
 - replace some database fields with config column

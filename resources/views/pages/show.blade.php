@@ -4,9 +4,9 @@
 
         <article class="fancy">
 
-            @unless($page->config['hide_title'])
+            @if(empty($page->config['hide_title']))
                 <h1 class="title tac">{{ $page->title }}</h1>
-            @endunless
+            @endif
 
             @if($page->intro)
                 <p class="lead tac">{{ $page->intro }}</p>

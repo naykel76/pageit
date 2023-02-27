@@ -4,11 +4,11 @@
 
         <div class="container maxw-lg space-y-1.5">
 
-            @unless($page->config['hide_title'])
+            @if(empty($page->config['hide_title']))
                 <div class="flex">
                     <h1 class="banner-title bg-blue-09">{{ $page->title }}</h1>
                 </div>
-            @endunless
+            @endif
 
             <div class="banner-text inline-flex">
 
