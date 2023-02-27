@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+- add previewRoute
+
+
 ## 0.1.3
 - fix title error when not available
 
