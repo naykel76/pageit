@@ -47,7 +47,7 @@
                     <x-gt-trix wire:model.lazy="editing.headline" for="editing.headline" label="Headline">
                         <x-slot name="tooltip">
                             <span x-data="{open:false}" x-on:mouseenter="open=true" x-on:mouseleave="open=false" class="relative">
-                                <x-gt-icon-info class="txt-blue" />
+                                <x-gt-icon-help />
                                 <div class="absolute pos-r mt-05 flex w-24 z-100 bx info-light pxy-05 " x-show="open" x-transition.duration style="display: none;">
                                     <small>The headline section usually appears right after the page title and is used to showcase a brief paragraph or bullet list. The appearance of this section can differ based on the page layout and template settings selected.</small>
                                 </div>
@@ -85,6 +85,21 @@
 
             <hr>
 
+            {{-- warning to indicate the page has advanced coding --}}
+            @if(!empty($editing->config['advanced_code']))
+
+                <div class="bx danger">
+                    <div class="flex">
+                        <x-gt-icon-warning class="icon wh-5 mr-2" />
+                        <div>
+                            <div class="bx-title">IMPORTANT</div>
+                            <p class="mt-05">This section of content has custom coding for its layout, modifying it without proper understanding may cause unintended or unexpected consequences.</p>
+                        </div>
+                    </div>
+                </div>
+
+            @endif
+
             <x-gt-ckeditor-full wire:model="editing.body" for="editing.body" editor-id="{{ '_' . rand() }}" />
 
         </x-slot>
@@ -117,7 +132,7 @@
                     <p class="txt-sm">These toggle switches are required for develpoment purpose and should not be changed.</p>
 
                     <label class="toggle">
-                        <input type="checkbox" wire:model.defer="editing.hide_title">
+                        <input type="checkbox" wire:model.defer="editing.config.hide_title">
                         <div></div>
                         <span class="ml">Hide Title</span>
                     </label>
@@ -129,7 +144,13 @@
                         <span class="ml">Is Category</span>
                     </label>
 
-                    <x-gt-input wire:model.defer="editing.type" for="editing.type" placeholder="Page type advanced or normal" disabled row-class="mt" />
+                    <label class="toggle">
+                        <input type="checkbox" wire:model.defer="editing.config.advanced_code">
+                        <div></div>
+                        <span class="ml">Advanced Code</span>
+                    </label>
+
+                    {{-- <x-gt-input wire:model.defer="editing.type" for="editing.type" placeholder="Page type advanced or normal" disabled row-class="mt" /> --}}
 
                 </div>
 

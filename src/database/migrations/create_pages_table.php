@@ -19,12 +19,12 @@ return new class extends Migration
                 $table->string('route_prefix')->nullable();
                 $table->boolean('is_category')->nullable()->default(0);
                 $table->string('title');
-                $table->boolean('hide_title')->nullable()->default(0);
                 $table->mediumText('headline')->nullable();
                 $table->string('slug');
+
                 $table->longText('body')->nullable();
                 $table->string('image')->nullable();
-                $table->string('type')->nullable();
+                $table->json('config')->nullable();
                 $table->string('layout')->nullable();
                 $table->integer('sort_order')->nullable()->default(0);
                 $table->dateTime('published_at')->nullable();

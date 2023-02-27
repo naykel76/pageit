@@ -12,6 +12,10 @@ class Page extends Model
 {
     use HasFactory, HasSlug;
 
+    protected $casts = [
+        'config' => 'array'
+    ];
+
     /**
      * Defines the layout a page will use when the show method is called
      */

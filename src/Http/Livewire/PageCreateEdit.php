@@ -39,12 +39,13 @@ class PageCreateEdit extends Component
             ],
             'editing.slug' => 'sometimes',
             'editing.headline' => 'sometimes',
-            'editing.hide_title' => 'sometimes',
             'editing.is_category' => 'sometimes',
-            'editing.type' => 'sometimes',
             'editing.body' => 'sometimes', // review for conditional use
             'editing.sort_order' => 'nullable|numeric',
             'tmpUpload' => 'nullable|image',
+            'editing.config.advanced_code' => 'sometimes',
+            'editing.config.hide_title' => 'sometimes',
+            'editing.config.type' => 'sometimes',
         ];
     }
 

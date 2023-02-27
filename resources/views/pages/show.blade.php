@@ -4,7 +4,7 @@
 
         <article class="fancy">
 
-            @unless($page->hide_title)
+            @unless($page->config['hide_title'])
                 <h1 class="title tac">{{ $page->title }}</h1>
             @endunless
 
