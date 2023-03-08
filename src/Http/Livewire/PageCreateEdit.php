@@ -14,29 +14,33 @@ class PageCreateEdit extends Component
     private static $model = Page::class;
     public string $routePrefix = 'admin.pages';
     public string $title;
-    public array $initialData = [];
+    public array $initialData = ['layout' => ''];
 
     public object $editing;
 
     public function rules()
     {
+
         return [
             'editing.title' => 'required|min:3',
             'editing.layout' => 'required|in:' . collect(self::$model::LAYOUTS)->keys()->implode(','),
-            // if is_category = true, see if any other pages have
-            // is_category=true AND route_prefix the same as the current
+            // This route_prefix validation feels dirty but it works!
             'editing.route_prefix' => [
                 Rule::requiredIf($this->editing->is_category),
-                Rule::unique('pages', 'route_prefix')
-                    ->where(function ($query) {
-                        if ($this->editing->is_category) {
-                            return $query->where('route_prefix', $this->editing->route_prefix);
-                        }
-                        // must have always false condition, else returns true
-                        return $query->whereRaw('1=0');
-                    })
-                    ->ignore($this->editing->id)
+                // validation will fail if the current route_prefix
+                // already exists on another item that is a category
+                function ($attribute, $value, $fail) {
+                    // if not a category, get out
+                    if (!$this->editing->is_category) return;
+                    // exclude the current item if it's being edited
+                    $excludeId = $this->editing->id ?? null;
+
+                    if (in_array($value, Page::categories()->where('id', '<>', $excludeId)->pluck('route_prefix')->toArray())) {
+                        $fail('The route prefix must be unique among category pages. This error indicates you already have a category page with this route_prefix');
+                    }
+                }
             ],
+
             'editing.slug' => 'sometimes',
             'editing.headline' => 'sometimes',
             'editing.is_category' => 'sometimes',
@@ -49,9 +53,7 @@ class PageCreateEdit extends Component
         ];
     }
 
-    protected $messages = [
-        'editing.route_prefix.unique' => 'You must set a unique route prefix for a category landing page. This error indicates that you already have a category landing page with this route_prefix.',
-    ];
+
 
     public function mount(Page $page)
     {

@@ -18,10 +18,6 @@
 
             </div>
 
-            <div>
-                <a href="/contact" class="btn warning txt-lg">Book your apoinment today</a>
-            </div>
-
         </div>
 
     </div>
@@ -32,6 +28,14 @@
                 {!! $page->body !!}
             </article>
         </div>
+    @endif
+
+    @if($page->isParentCategory())
+        <x-pageit::sub-categories :$subCategories />
+    @endif
+
+    @if($page->isSubCategory())
+        <x-pageit::category-pages :$categoryPages />
     @endif
 
 </x-gotime-app-layout>

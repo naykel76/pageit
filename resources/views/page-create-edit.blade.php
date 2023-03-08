@@ -20,7 +20,7 @@
 
     <h1>{{ $title }}</h1>
 
-    <x-gt-actions-toolbar :$routePrefix :$editing :$actionItemId previewRoute="pages.show"/>
+    <x-gt-actions-toolbar :$routePrefix :$editing :$actionItemId previewRoute="pages.show" />
 
     <x-gotime-errors />
 
@@ -44,7 +44,7 @@
 
                     <hr>
 
-                    <x-gt-trix wire:model.lazy="editing.headline" for="editing.headline" label="Headline">
+                    <x-gt-trix wire:model.defer="editing.headline" for="editing.headline" label="Headline">
                         <x-slot name="tooltip">
                             <span x-data="{open:false}" x-on:mouseenter="open=true" x-on:mouseleave="open=false" class="relative">
                                 <x-gt-icon-help />
@@ -118,18 +118,14 @@
 
             <div>
 
-                <p class="txt-xs">The route prefix and slug are used for site navigation and should not be changed unless you know what you are doing.</p>
+                <div class="bx warning-light pxy-05 flex-col gg-1 space-y-0">
 
-                <x-gt-input wire:model.defer="editing.route_prefix" for="editing.route_prefix" label="Route Prefix"
-                    placeholder="Advanced use, required for routing" />
+                    <p class="txt-xs">The settings in this section are used to configure site navigation and page layouts. Modifying without proper understanding may cause unintended or unexpected consequences.</p>
 
-                <x-gt-input wire:model.defer="editing.slug" for="editing.slug" label="Slug" />
+                    <x-gt-input wire:model.defer="editing.route_prefix" for="editing.route_prefix" label="Route Prefix"
+                        placeholder="Advanced use, required for routing" />
 
-                <hr>
-
-                <div class="bx danger-light pxy-05 flex-col gg-1 space-y-0">
-
-                    <p class="txt-sm">These toggle switches are required for develpoment purpose and should not be changed.</p>
+                    <x-gt-input wire:model.defer="editing.slug" for="editing.slug" label="Slug" />
 
                     <label class="toggle">
                         <input type="checkbox" wire:model.defer="editing.config.hide_title">
@@ -137,11 +133,10 @@
                         <span class="ml">Hide Title</span>
                     </label>
 
-
                     <label class="toggle">
                         <input type="checkbox" wire:model.defer="editing.is_category">
                         <div></div>
-                        <span class="ml">Is Category</span>
+                        <span class="ml">Main Category</span>
                     </label>
 
                     <label class="toggle">
@@ -149,8 +144,6 @@
                         <div></div>
                         <span class="ml">Advanced Code</span>
                     </label>
-
-                    {{-- <x-gt-input wire:model.defer="editing.type" for="editing.type" placeholder="Page type advanced or normal" disabled row-class="mt" /> --}}
 
                 </div>
 

@@ -4,48 +4,45 @@ namespace Naykel\Pageit\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Naykel\Pageit\Models\Page;
-use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
 
-    // This function needs to be more flexible, as not all pages will have categories!
-    public function show(Request $request, Page $page)
+    public function show(Page $page)
     {
-        $routePrefix = ltrim($request->route()->getPrefix(), '/');
+        $routePrefix = $page->route_prefix;
 
-        $subCategories = $this->getCategoryPages($routePrefix . '/' . $page->slug)->get();
+        $subCategories = Page::select('id', 'route_prefix', 'title', 'slug', 'image')
+            ->whereRaw('LENGTH(route_prefix) - LENGTH(REPLACE(route_prefix, "/", "")) + 1 = 2')
+            ->where('route_prefix', 'like',  $routePrefix . '%')
+            ->where('is_category', true)
+            ->get();
 
-        $layout = $page->layout ?? 'default';
+        $categoryPages = Page::select('id', 'route_prefix', 'title', 'slug', 'image')
+            ->where('route_prefix', 'like',  $routePrefix . '%')
+            ->where('is_category', false)
+            ->get();
 
-        return view('pageit::pages.' . $layout)->with([
+        $view = $this->getView(($page->layout ?? 'default'));
+
+        return view($view)->with([
             'title' => $page->title,
             'page' => $page,
-            'subCategories' => $subCategories
+            'subCategories' =>  $subCategories,
+            'categoryPages' =>  $categoryPages
         ]);
     }
 
-    public function categoriesPage(Request $request)
+    /**
+     * Return local view if one exists
+     */
+    public function getView($view): string
     {
-        $routePrefix = ltrim($request->route()->getPrefix(), '/');
-
-        // fetch all pages that start with the route prefix
-        $pages = Page::where('route_prefix', 'like',  $routePrefix . '%')->get();
-
-        $categories = Page::where('route_prefix', 'like',  $routePrefix . '%')
-            ->select('route_prefix', 'slug', 'image', 'title')
-            ->whereIsCategory(true)->get();
-
-        return view('pages.category-page')->with([
-            'parentCategory' => $routePrefix,
-            'categories' => $categories,
-            'pages' => $pages,
-            'title' => ucwords(str_replace('-', ' ', $routePrefix)),
-        ]);
+        if (view()->exists('layouts.pages.' . $view)) {
+            return 'layouts.pages.' . $view;
+        } else {
+            return 'pageit::pages.' . $view;
+        }
     }
 
-    protected function getCategoryPages(string $routePrefix)
-    {
-        return Page::where('route_prefix', 'like',  $routePrefix . '%');
-    }
 }

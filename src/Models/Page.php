@@ -12,6 +12,8 @@ class Page extends Model
 {
     use HasFactory, HasSlug;
 
+    public $guarded = [];
+
     protected $casts = [
         'config' => 'array'
     ];
@@ -21,7 +23,7 @@ class Page extends Model
      */
     const LAYOUTS = [
         'default' => 'General Page',
-        'banner' => 'Banner',
+        'banner' => 'Banner'
     ];
 
     public function mainImageUrl()
@@ -46,22 +48,22 @@ class Page extends Model
      * ----------------------------------------------------------------------
      *
      */
-    public function isPublished()
+    public function isPublished(): bool
     {
         return $this->published_at ? true : false;
     }
 
-    public function isCategory()
+    public function isCategory(): bool
     {
         return $this->is_category ? true : false;
     }
 
-    public function isParentCategory()
+    public function isParentCategory(): bool
     {
         return $this->route_prefix ? numSegments($this->route_prefix) == 1 && $this->is_category : false;
     }
 
-    public function isSubCategory()
+    public function isSubCategory(): bool
     {
         return $this->route_prefix ? numSegments($this->route_prefix) == 2 && $this->is_category : false;
     }
@@ -73,6 +75,24 @@ class Page extends Model
      *
      */
 
+     // fetch all categories both parent and sub.
+     public function scopeCategories ($query) {
+        $query->select('id', 'route_prefix', 'title', 'slug', 'image')
+        ->where('is_category', true)
+        ->get();
+     }
+
+    public function scopeSubCategories($query)
+    {
+        $query->select('id', 'route_prefix', 'title', 'slug', 'image')
+            ->where('is_category', true)
+            ->whereRaw("LENGTH(route_prefix) - LENGTH(REPLACE(route_prefix, '/', '')) + 1 = 2")
+            ->get();
+    }
+
+
+    // ??????WTF??????????????
+    // it think this is for the page map!
     public function scopeCategoryLandingPages($query)
     {
         $query->select('id', 'title', 'route_prefix', 'slug', 'is_category')
