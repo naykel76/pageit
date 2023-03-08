@@ -9,8 +9,10 @@
                 @foreach($categoryPages as $page)
 
                     <div class="mt">
-                        {{-- in this case the route prefix includes the slug --}}
-                        <a class="txt-lg" href="/{{ $page->route_prefix }}">
+
+                        <a class="txt-lg" href="/{{ $page->route_prefix ? $page->route_prefix . '/' : '' }}{{ $page->slug }}">
+
+                        {{-- <a class="txt-lg" href="/{{ $page->route_prefix }}"> --}}
                             <img class="rounded-05" src="{{ $page->mainImageUrl() }}" alt="{{ $page->title ?? null }}">
                             {{ $page->title }}
                         </a>

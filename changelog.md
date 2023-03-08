@@ -1,9 +1,12 @@
 # Changelog
 
+## 0.2.1
+- fix bad category routes
+
 ## 0.2.0
 - fix route_prefix validation
 - update layouts to show correct categories
-- add return local view i exists
+- add return local view if exists
 
 ## 0.1.4
 - add previewRoute
