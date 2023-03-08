@@ -2,7 +2,7 @@
 
     <div class="banner flex va-c blue" style="background-image: url({{ $page->mainImageUrl() }});">
 
-        <div class="container maxw-lg space-y-1.5">
+        <div class="container maxw-md space-y-1.5">
 
             @if(empty($page->config['hide_title']))
                 <div class="flex">
@@ -10,13 +10,17 @@
                 </div>
             @endif
 
-            <div class="banner-text inline-flex">
+            @isset($page->lead_text)
+                <p class="lead">{{ $page->lead_text }}</p>
+            @endisset
 
-                <div class="icon-list tick-svg maxw-md">
-                    {!! $page->headline !!}
+            @isset($page->headline)
+                <div class="banner-text inline-flex">
+                    <div class="icon-list tick-svg maxw-md">
+                        {!! $page->headline !!}
+                    </div>
                 </div>
-
-            </div>
+            @endisset
 
         </div>
 

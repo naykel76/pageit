@@ -42,6 +42,7 @@ class PageCreateEdit extends Component
             ],
 
             'editing.slug' => 'sometimes',
+            'editing.lead_text' => 'sometimes',
             'editing.headline' => 'sometimes',
             'editing.is_category' => 'sometimes',
             'editing.body' => 'sometimes', // review for conditional use

@@ -44,7 +44,9 @@
 
                     <hr>
 
-                    <x-gt-trix wire:model.defer="editing.headline" for="editing.headline" label="Headline">
+                    <x-gt-textarea wire:model.defer="editing.lead_text" for="editing.lead_text" label="Lead Text" inline/>
+
+                    <x-gt-trix wire:model.defer="editing.headline" for="editing.headline" label="Headlines">
                         <x-slot name="tooltip">
                             <span x-data="{open:false}" x-on:mouseenter="open=true" x-on:mouseleave="open=false" class="relative">
                                 <x-gt-icon-help />

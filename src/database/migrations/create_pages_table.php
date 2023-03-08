@@ -19,9 +19,10 @@ return new class extends Migration
                 $table->string('route_prefix')->nullable();
                 $table->boolean('is_category')->nullable()->default(0);
                 $table->string('title');
-                $table->mediumText('headline')->nullable();
+                // whats the difference? ..... Not much!
+                $table->mediumText('lead_text')->nullable();    // for paragraph
+                $table->mediumText('headline')->nullable();     // for bullets
                 $table->string('slug');
-
                 $table->longText('body')->nullable();
                 $table->string('image')->nullable();
                 $table->json('config')->nullable();
