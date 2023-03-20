@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2
+- add lead_text
+
 ## 0.2.1
 - fix bad category routes
 
