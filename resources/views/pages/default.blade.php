@@ -1,4 +1,4 @@
-<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$title>
+<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$pageTitle>
 
     <div class="container maxw-md my-3">
 

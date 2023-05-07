@@ -13,7 +13,7 @@ class PageCreateEdit extends Component
 
     private static $model = Page::class;
     public string $routePrefix = 'admin.pages';
-    public string $title;
+    public string $pageTitle;
     public array $initialData = ['layout' => ''];
 
     public object $editing;
@@ -60,7 +60,7 @@ class PageCreateEdit extends Component
     {
         $this->editing = $page ? $page : $this->makeBlankModel();
         $this->isPublished = $this->editing->isPublished();
-        $this->title = $this->setTitle();
+        $this->pageTitle = $this->setTitle();
     }
 
     protected function beforePersistHook()
@@ -77,7 +77,7 @@ class PageCreateEdit extends Component
     {
         return view('pageit::page-create-edit')
             ->layout(\Naykel\Gotime\View\Layouts\AppLayout::class, [
-                'title' => $this->title,
+                'pageTitle' => $this->pageTitle,
                 'layout' => 'admin'
             ]);
     }

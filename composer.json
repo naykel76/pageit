@@ -18,7 +18,7 @@
     "autoload": {
         "psr-4": {
             "Naykel\\Pageit\\": "src/",
-            "Naykel\\Pageit\\Database\\": "src/database/"
+            "Naykel\\Pageit\\Database\\Seeders\\": "src/database/seeders/"
         }
     },
     "extra": {

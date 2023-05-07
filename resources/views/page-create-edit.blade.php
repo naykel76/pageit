@@ -18,7 +18,7 @@
 
     @endpush
 
-    <h1>{{ $title }}</h1>
+    <h1>{{ $pageTitle}}</h1>
 
     <x-gt-actions-toolbar :$routePrefix :$editing :$actionItemId previewRoute="pages.show" />
 

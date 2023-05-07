@@ -26,7 +26,7 @@ class PageController extends Controller
         $view = $this->getView(($page->layout ?? 'default'));
 
         return view($view)->with([
-            'title' => $page->title,
+            'pageTitle' => $page->title,
             'page' => $page,
             'subCategories' =>  $subCategories,
             'categoryPages' =>  $categoryPages

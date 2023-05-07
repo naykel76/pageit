@@ -18,7 +18,7 @@ class ShowPageMapController extends Controller
             ->sortBy('route_prefix');
 
         return view('pageit::pages-map', [
-            'title' => 'Site Pages Map',
+            'pageTitle' => 'Site Pages Map',
             'pages' => $pages,
             'uncategorisedPages' => $uncategorisedPages,
             'categoryLandingPages' => $categoryLandingPages,

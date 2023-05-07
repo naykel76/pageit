@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0
+- Changed: $title to $pageTitle and update sources
+
 ## 0.2.2
 - add lead_text
 

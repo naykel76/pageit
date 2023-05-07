@@ -17,7 +17,7 @@ class PageTable extends Component
     public array $searchOptions = ['title' => 'Title',  'route_prefix' => 'Route', 'slug' => 'Slug',];
 
     public string $routePrefix = 'admin.pages';
-    public string $title = 'Site Pages';
+    public string $pageTitle = 'Site Pages';
     private static $model = Page::class;
 
     public string $filterBy = '';
@@ -36,7 +36,7 @@ class PageTable extends Component
         return view('pageit::page-table')
             ->with(['items' => $query])
             ->layout(\Naykel\Gotime\View\Layouts\AppLayout::class, [
-                'title' => $this->title,
+                'pageTitle' => $this->pageTitle,
                 'layout' => 'admin'
             ]);
     }

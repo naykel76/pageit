@@ -1,4 +1,4 @@
-<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$title>
+<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$pageTitle>
 
     <div class="banner flex va-c blue" style="background-image: url({{ $page->mainImageUrl() }});">
 

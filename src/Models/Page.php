@@ -26,6 +26,11 @@ class Page extends Model
         'banner' => 'Banner'
     ];
 
+    public function blocks()
+    {
+        return $this->hasMany(PageBlock::class);
+    }
+
     public function mainImageUrl()
     {
         return $this->image
@@ -75,12 +80,13 @@ class Page extends Model
      *
      */
 
-     // fetch all categories both parent and sub.
-     public function scopeCategories ($query) {
+    // fetch all categories both parent and sub.
+    public function scopeCategories($query)
+    {
         $query->select('id', 'route_prefix', 'title', 'slug', 'image')
-        ->where('is_category', true)
-        ->get();
-     }
+            ->where('is_category', true)
+            ->get();
+    }
 
     public function scopeSubCategories($query)
     {

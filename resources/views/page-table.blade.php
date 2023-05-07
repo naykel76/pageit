@@ -1,5 +1,5 @@
 <div>
-    <x-gt-title-bar :$title :$routePrefix />
+    <x-gt-title-bar :$pageTitle :$routePrefix />
 
     <x-gt-search-sort-toolbar :$searchField :$searchOptions :$paginateOptions hideButton>
         <div class="flex fg1 va-c ha-r space-x-05">
