@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0
+## 0.4.0
 - Changed: $title to $pageTitle and update sources
 
 ## 0.2.2
