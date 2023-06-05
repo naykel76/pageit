@@ -1,4 +1,4 @@
-<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$pageTitle>
+<x-gotime-app-layout layout="{{ config('naykel.template') }}" :$pageTitle class="py-5-3-2-2">
 
     <div class="container maxw-md my-3">
 
@@ -8,8 +8,8 @@
                 <h1 class="title tac">{{ $page->title }}</h1>
             @endif
 
-            @if($page->intro)
-                <p class="lead tac">{{ $page->intro }}</p>
+            @if($page->lead_text)
+                <p class="lead tac">{{ $page->lead_text }}</p>
             @endif
 
             @if($page->image)

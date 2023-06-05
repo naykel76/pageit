@@ -22,8 +22,9 @@ class Page extends Model
      * Defines the layout a page will use when the show method is called
      */
     const LAYOUTS = [
-        'default' => 'General Page',
-        'banner' => 'Banner'
+        'default' => 'Default',
+        'banner' => 'Banner',
+        'image-wrap' => 'Image Wrap'
     ];
 
     public function blocks()

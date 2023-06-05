@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+- Changed: create-edit form layout
+- Added: image-wrap template
+- Updated: JTB classes
+
 ## 0.4.0
 - Changed: $title to $pageTitle and update sources
 

@@ -58,13 +58,14 @@ class PageCreateEdit extends Component
 
     public function mount(Page $page)
     {
-        $this->editing = $page ? $page : $this->makeBlankModel();
+        $this->editing = $page->id ? $page : $this->makeBlankModel();
         $this->isPublished = $this->editing->isPublished();
         $this->pageTitle = $this->setTitle();
     }
 
     protected function beforePersistHook()
     {
+
         $this->handlePublishedStatus();
     }
 
