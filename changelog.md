@@ -1,5 +1,8 @@
 # Changelog
 
+## (current)
+- Added: new query scopes and renamed variable and methods to be clearer
+
 ## 0.5.1
 - Removed: PageSeeder
 - Changed: min PHP to 8.1

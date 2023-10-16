@@ -56,12 +56,12 @@ class Page extends Model
      */
     public function isPublished(): bool
     {
-        return $this->published_at ? true : false;
+        return $this->published_at !== null;
     }
 
     public function isCategory(): bool
     {
-        return $this->is_category ? true : false;
+        return $this->is_category !== null;
     }
 
     public function isParentCategory(): bool
@@ -78,25 +78,62 @@ class Page extends Model
      * ----------------------------------------------------------------------
      * QUERY SCOPES
      * ----------------------------------------------------------------------
-     *
      */
 
-    // fetch all categories both parent and sub.
-    public function scopeCategories($query)
+    /**
+     * Fetch all categories (both main and subcategory) by published status.
+     */
+    // public function scopeCategories($query, $isPublished = true)
+    // {
+    //     $query->select('id', 'route_prefix', 'title', 'slug', 'image')
+    //         ->where('is_category', true)
+    //         ->get();
+
+    //     if ($isPublished) $query->whereNotNull('published_at');
+
+    //     return $query;
+    // }
+
+    /**
+     * Fetch pages by the route_prefix (can be category or sub-category as
+     * long as the route matches) and published status. Note: this only
+     * returns selected columns to be used for navigation.
+     */
+    public function scopePagesByRoutePrefix($query, $routePrefix, $isPublished = true)
     {
         $query->select('id', 'route_prefix', 'title', 'slug', 'image')
-            ->where('is_category', true)
-            ->get();
+            ->where('route_prefix', 'like',  $routePrefix . '%')
+            ->where('is_category', false);
+
+        if ($isPublished) $query->whereNotNull('published_at');
+
+        return $query;
     }
 
-    public function scopeSubCategories($query)
+    /**
+     * Fetch related sub-categories by the route_prefix (category) and
+     * published status. Note: this only returns selected columns to be used
+     * for navigation.
+     */
+    public function scopeSubCategoryLinksByCategory($query, $routePrefix, $isPublished = true)
     {
         $query->select('id', 'route_prefix', 'title', 'slug', 'image')
-            ->where('is_category', true)
-            ->whereRaw("LENGTH(route_prefix) - LENGTH(REPLACE(route_prefix, '/', '')) + 1 = 2")
-            ->get();
+            ->whereRaw('LENGTH(route_prefix) - LENGTH(REPLACE(route_prefix, "/", "")) + 1 = 2')
+            ->where('route_prefix', 'like',  $routePrefix . '%')
+            ->where('is_category', true);
+
+        if ($isPublished) $query->whereNotNull('published_at');
+
+        return $query;
     }
 
+
+    //
+    //
+    // FOR REVIEW
+    //
+    //
+    //
 
     // ??????WTF??????????????
     // it think this is for the page map!

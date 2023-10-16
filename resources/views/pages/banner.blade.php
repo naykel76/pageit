@@ -39,7 +39,7 @@
     @endif
 
     @if($page->isSubCategory())
-        <x-pageit::category-pages :$categoryPages />
+        <x-pageit::related-pages :$relatedPages />
     @endif
 
 </x-gotime-app-layout>

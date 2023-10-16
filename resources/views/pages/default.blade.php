@@ -20,12 +20,15 @@
 
         </article>
 
+        {{-- if the page a parent category landing page, display the sub-categories --}}
         @if($page->isParentCategory())
             <x-pageit::sub-categories :$subCategories />
         @endif
 
+        {{-- if the page a sub-category landing page, then display the
+        rest of the sub-category pages (quick links) --}}
         @if($page->isSubCategory())
-            <x-pageit::category-pages :$categoryPages />
+            <x-pageit::related-pages :$relatedPages />
         @endif
 
     </div>

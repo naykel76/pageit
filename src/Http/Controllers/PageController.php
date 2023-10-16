@@ -11,25 +11,16 @@ class PageController extends Controller
     public function show(Page $page)
     {
         $routePrefix = $page->route_prefix;
-
-        $subCategories = Page::select('id', 'route_prefix', 'title', 'slug', 'image')
-            ->whereRaw('LENGTH(route_prefix) - LENGTH(REPLACE(route_prefix, "/", "")) + 1 = 2')
-            ->where('route_prefix', 'like',  $routePrefix . '%')
-            ->where('is_category', true)
-            ->get();
-
-        $categoryPages = Page::select('id', 'route_prefix', 'title', 'slug', 'image')
-            ->where('route_prefix', 'like',  $routePrefix . '%')
-            ->where('is_category', false)
-            ->get();
+        $subCategoryLinksByCategory = Page::subCategoryLinksByCategory($routePrefix)->get();
+        $pagesByRoutePrefix = Page::pagesByRoutePrefix($routePrefix)->get();
 
         $view = $this->getView(($page->layout ?? 'default'));
 
         return view($view)->with([
             'pageTitle' => $page->title,
             'page' => $page,
-            'subCategories' =>  $subCategories,
-            'categoryPages' =>  $categoryPages
+            'subCategories' =>  $subCategoryLinksByCategory,
+            'relatedPages' =>  $pagesByRoutePrefix
         ]);
     }
 
