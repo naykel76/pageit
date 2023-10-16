@@ -10,15 +10,17 @@
         }
     ],
     "homepage": "https://github.com/naykel76/pageit.git",
-    "keywords": ["Laravel", "Pageit"],
+    "keywords": [
+        "Laravel",
+        "Pageit"
+    ],
     "require": {
-        "php": ">=8.0",
+        "php": "^8.1",
         "spatie/laravel-sluggable": "^3.4"
     },
     "autoload": {
         "psr-4": {
-            "Naykel\\Pageit\\": "src/",
-            "Naykel\\Pageit\\Database\\Seeders\\": "src/database/seeders/"
+            "Naykel\\Pageit\\": "src/"
         }
     },
     "extra": {

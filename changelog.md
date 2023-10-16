@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+- Removed: PageSeeder
+- Changed: min PHP to 8.1
+
 ## 0.5.0
 - Changed: create-edit form layout
 - Added: image-wrap template
