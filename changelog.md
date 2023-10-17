@@ -1,6 +1,6 @@
 # Changelog
 
-## (current)
+## 0.6.0
 - Added: new query scopes and renamed variable and methods to be clearer
 
 ## 0.5.1
