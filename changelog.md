@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.1
+- Re-enabled `scopeCategories` method for map
+
 ## 0.6.0
 - Added: new query scopes and renamed variable and methods to be clearer
 

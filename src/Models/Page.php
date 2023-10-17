@@ -83,16 +83,16 @@ class Page extends Model
     /**
      * Fetch all categories (both main and subcategory) by published status.
      */
-    // public function scopeCategories($query, $isPublished = true)
-    // {
-    //     $query->select('id', 'route_prefix', 'title', 'slug', 'image')
-    //         ->where('is_category', true)
-    //         ->get();
+    public function scopeCategories($query, $isPublished = true)
+    {
+        $query->select('id', 'route_prefix', 'title', 'slug', 'image')
+            ->where('is_category', true)
+            ->get();
 
-    //     if ($isPublished) $query->whereNotNull('published_at');
+        if ($isPublished) $query->whereNotNull('published_at');
 
-    //     return $query;
-    // }
+        return $query;
+    }
 
     /**
      * Fetch pages by the route_prefix (can be category or sub-category as
