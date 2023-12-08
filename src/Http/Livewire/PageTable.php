@@ -12,7 +12,6 @@ class PageTable extends Component
 {
     use WithPagination, WithDataTable;
 
-    public string $sortField = 'route_prefix';
     public string $searchField = 'title';
     public array $searchOptions = ['title' => 'Title',  'route_prefix' => 'Route', 'slug' => 'Slug',];
 
@@ -21,6 +20,11 @@ class PageTable extends Component
     private static $model = Page::class;
 
     public string $filterBy = '';
+
+    public function boot()
+    {
+        $this->sortField = 'route_prefix';
+    }
 
     public function render()
     {

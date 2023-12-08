@@ -18,7 +18,7 @@
     <table class="w-full">
 
         <thead>
-            <x-gt-table.th sortable wire:click="sortField('title')" :direction="$sortField === 'title' ? $sortDirection : null" class="w-full">Title</x-gt-table.th>
+            <x-gt-table.th sortable wire:click="sortBy('title')" :direction="$sortField === 'title' ? $sortDirection : null" class="w-full">Title</x-gt-table.th>
             <th class="tac px">Published</th>
             <th></th>
         </thead>

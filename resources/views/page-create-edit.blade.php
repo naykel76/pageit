@@ -111,7 +111,7 @@
 
             <div>
 
-                <div class="bx warning pxy-05 flex-col gg-1 space-y-0">
+                <div class="bx warning pxy-05 flex-col gap-1 space-y-0">
 
                     <p class="txt-xs">The settings in this section are used to configure site navigation and page layouts. Modifying without proper understanding may cause unintended or unexpected consequences.</p>
 

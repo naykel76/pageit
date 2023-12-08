@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.0
+- Added: `boot` method to `pageTable` and updated to set the `sortField`
+
 ## 0.6.1
 - Re-enabled `scopeCategories` method for map
 
