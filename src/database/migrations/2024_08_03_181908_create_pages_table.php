@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('route_prefix')->nullable();
             $table->boolean('is_category')->nullable()->default(0);
             $table->string('title');
+            $table->string('slug');
             $table->mediumText('intro')->nullable();
             $table->mediumText('headline')->nullable();
-            $table->string('slug');
             $table->longText('body')->nullable();
             $table->string('image_name')->nullable();
             $table->json('config')->nullable();
