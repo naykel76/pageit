@@ -1,0 +1,34 @@
+{
+    "name": "naykel/pageit",
+    "description": "Page management package for NayKel Laravel Applications",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan Watts",
+            "email": "nathan@naykel.com.au",
+            "homepage": "https://naykel.com.au"
+        }
+    ],
+    "homepage": "https://github.com/naykel76/pageit.git",
+    "keywords": [
+        "Laravel",
+        "Pageit"
+    ],
+    "require": {
+        "php": "^8.2",
+        "livewire/livewire": "^3.4",
+        "spatie/laravel-sluggable": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Naykel\\Pageit\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Naykel\\Pageit\\PageitServiceProvider"
+            ]
+        }
+    }
+}
