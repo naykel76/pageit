@@ -26,8 +26,8 @@ class Page extends Model
 
     public function mainImageUrl()
     {
-        return $this->image
-            ? Storage::disk('content')->url($this->image)
+        return $this->image_name
+            ? Storage::disk('content')->url($this->image_name)
             : url('https://placehold.co/400x300');
     }
 
